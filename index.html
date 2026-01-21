@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="pt-br" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ENEM 2026 APP — Calendário de Estudos</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+    <header class="topbar">
+        <div class="container topbar-inner">
+            <div class="brand">
+                <h1>📅 ENEM 2026 — Calendário</h1>
+                <p>Progressivo • 2h por sessão • Meta 800+ • Engenharia de Software</p>
+            </div>
+
+            <div class="topbar-actions">
+                <button id="btnTheme" class="btn ghost">🌙 Tema</button>
+                <button id="btnPrint" class="btn ghost">🖨️ PDF</button>
+                <button id="btnReset" class="btn danger">🧹 Reset</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- CONTROLES -->
+        <section class="card">
+            <div class="card-header">
+                <div>
+                    <h2>🎛️ Controle do calendário</h2>
+                    <p class="muted">Selecione o mês e clique em qualquer tarefa para ver os detalhes.</p>
+                </div>
+
+                <div class="pill">
+                    <span id="progressText">0%</span>
+                </div>
+            </div>
+
+            <div class="controls">
+                <div class="control">
+                    <label>Mês</label>
+                    <select id="monthSelect"></select>
+                </div>
+
+                <div class="control">
+                    <label>Fase</label>
+                    <select id="phaseSelect">
+                        <option value="todos">Todas</option>
+                        <option value="base">Base/Adaptação</option>
+                        <option value="consolidacao">Consolidação</option>
+                        <option value="aprofundamento">Aprofundamento</option>
+                        <option value="retafinal">Reta Final</option>
+                    </select>
+                </div>
+
+                <div class="control">
+                    <label>Pesquisar</label>
+                    <input id="searchInput" type="text" placeholder="Ex: função, cinemática, redação..." />
+                </div>
+            </div>
+
+            <div class="progressbar">
+                <div id="progressFill" class="progressbar-fill"></div>
+            </div>
+
+            <div class="summary-grid">
+                <div class="summary-item">
+                    <span class="summary-label">Total</span>
+                    <strong id="totalTasks">0</strong>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Concluídas</span>
+                    <strong id="doneTasks">0</strong>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Pendentes</span>
+                    <strong id="pendingTasks">0</strong>
+                </div>
+            </div>
+        </section>
+
+        <!-- CALENDÁRIO -->
+        <section class="card">
+            <div class="card-header">
+                <div>
+                    <h2>🗓️ Calendário do mês</h2>
+                    <p class="muted">Blocos grandes, semana por semana (clique para abrir).</p>
+                </div>
+                <div class="pill soft">
+                    <span id="monthInfo">—</span>
+                </div>
+            </div>
+
+            <div id="calendar" class="calendar"></div>
+        </section>
+
+        <footer class="footer">
+            <p>🚀 Clique nas tarefas → veja o passo a passo → marque como concluído.</p>
+        </footer>
+    </main>
+
+    <!-- MODAL -->
+    <div id="modalOverlay" class="modal-overlay hidden">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h3 id="modalTitle">Título</h3>
+                    <p id="modalMeta" class="muted">Meta</p>
+                </div>
+                <button id="modalClose" class="btn ghost">✖</button>
+            </div>
+
+            <div class="modal-body">
+                <div class="modal-tags">
+                    <span id="tagMonth" class="badge">Mês</span>
+                    <span id="tagPhase" class="badge phase">Fase</span>
+                    <span id="tagArea" class="badge area">Área</span>
+                </div>
+
+                <div class="modal-section">
+                    <h4>📌 Detalhes da tarefa</h4>
+                    <p id="modalDetails" class="muted"></p>
+                </div>
+
+                <div class="modal-section">
+                    <h4>⏱️ Como fazer (2 horas)</h4>
+                    <ul class="steps">
+                        <li><strong>70 min</strong> → Teoria + exemplos + 3 anotações curtas</li>
+                        <li><strong>40 min</strong> → Questões ENEM (cronometrado)</li>
+                        <li><strong>10 min</strong> → Caderno de erros + revisão rápida</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h4>✅ Checklist rápido</h4>
+                    <ul class="checklist">
+                        <li>✔ Fiz pelo menos 10–20 questões</li>
+                        <li>✔ Corrigi e entendi o erro</li>
+                        <li>✔ Anotei 1 “regra de ouro” do assunto</li>
+                        <li>✔ Marquei o que revisar em 7 dias</li>
+                    </ul>
+                </div>
+
+                <div class="modal-section">
+                    <h4>🔥 Sugestões para tirar nota alta</h4>
+                    <p id="modalTips" class="muted"></p>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button id="modalToggleDone" class="btn">✅ Marcar como concluída</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
